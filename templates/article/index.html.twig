@@ -12,15 +12,31 @@
 				<th>Id</th>
 				<th>Title</th>
 				<th>Content</th>
-				<th>actions</th>
+				<th>Image</th>
+				<th>Actions</th>
 			</tr>
 		</thead>
+
 		<tbody>
 			{% for article in articles %}
 				<tr>
-					<td>{{ article.id }}</td>
+				{#Le nombre d'article affichier dans ma bd dauto incrementation
+				augmente sans alter table 
+				
+					<td>{{ article.id }}</td>#}
+
+					<td>{{ loop.index }}</td>
 					<td>{{ article.title }}</td>
 					<td>{{ article.content }}</td>
+
+					<td>
+						{% if article.image %}
+							<img src="{{ asset('uploads/images/' ~ article.image) }}" width="100">
+						{% else %}
+							<em>Aucune image</em>
+						{% endif %}
+					</td>
+
 					<td>
 						<a href="{{ path('app_article_show', {'id': article.id}) }}">show</a>
 						<a href="{{ path('app_article_edit', {'id': article.id}) }}">edit</a>
@@ -28,7 +44,7 @@
 				</tr>
 			{% else %}
 				<tr>
-					<td colspan="4">no records found</td>
+					<td colspan="5">no records found</td>
 				</tr>
 			{% endfor %}
 		</tbody>
@@ -40,5 +56,4 @@
 		<br>
 		<a href="{{ path('app_logout') }}">Déconnexion</a>
 	{% endif %}
-
 {% endblock %}

@@ -1,30 +1,40 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Article{% endblock %}
+{% block title %}Article
+{% endblock %}
 
 {% block body %}
-    <h1>Article</h1>
+	<h1>Article</h1>
 
-    <table class="table">
-        <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ article.id }}</td>
-            </tr>
-            <tr>
-                <th>Title</th>
-                <td>{{ article.title }}</td>
-            </tr>
-            <tr>
-                <th>Content</th>
-                <td>{{ article.content }}</td>
-            </tr>
-        </tbody>
-    </table>
+	<table class="table">
+		<tbody>
+			<tr>
+				<th>Id</th>
+				<td>{{ article.id }}</td>
+			</tr>
+			<tr>
+				<th>Title</th>
+				<td>{{ article.title }}</td>
+			</tr>
+			<tr>
+				<th>Content</th>
+				<td>{{ article.content }}</td>
+			</tr>
+			<tr>
+				<th>Image</th>
+				<td>
+					{% if article.image %}
+						<img src="{{ asset('uploads/images/' ~ article.image) }}" width="300">
+					{% else %}
+						<em>Aucune image</em>
+					{% endif %}
+				</td>
+			</tr>
+		</tbody>
+	</table>
 
-    <a href="{{ path('app_article_index') }}">back to list</a>
+	<a href="{{ path('app_article_index') }}">back to list</a>
+	<a href="{{ path('app_article_edit', {'id': article.id}) }}">edit</a>
 
-    <a href="{{ path('app_article_edit', {'id': article.id}) }}">edit</a>
-
-    {{ include('article/_delete_form.html.twig') }}
+	{{ include('article/_delete_form.html.twig') }}
 {% endblock %}
